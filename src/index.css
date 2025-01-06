@@ -1,0 +1,154 @@
+.container-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #4285F4;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.message {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.message.small {
+  font-size: 0.9em;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-group label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.input-field {
+  width: 280px;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.ssn-input {
+  position: relative;
+}
+
+.ssn-input input {
+  width: 280px;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.upload-section {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;  /* Cambié a columna */
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: white;
+  color: #4285F4;
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  line-height: 120px;
+  margin-bottom: 10px;
+  position: relative; /* Esto asegura que el contenido dentro del label se posicione correctamente */
+}
+.upload-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Hace que la imagen se ajuste al tamaño del div sin distorsionarse */
+  border-radius: 5px;
+}
+.camera-icon {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-upload {
+  display: none;
+}
+
+.image-preview {
+  margin-top: 10px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.button {
+  background-color: white;
+  color: #4285F4;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.5em;
+  }
+
+  .message {
+    font-size: 1em;
+  }
+
+  .input-field {
+    width: 90%;
+  }
+
+  .button {
+    width: 45%;
+  }
+}
