@@ -6,11 +6,59 @@ function App() {
   const [dob, setDob] = useState('');
   const [ssn, setSsn] = useState('');
   const [image, setImage] = useState(null);
+  const [isCameraOn, setIsCameraOn] = useState(false);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
-  const handleImageUpload = (e:any) => {
+  useEffect(() => {
+    if (isCameraOn) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          videoRef.current.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("Error al acceder a la cámara: ", error);
+        });
+    } else {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+      }
+    }
+
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+      }
+    };
+  }, [isCameraOn]);
+
+  const captureImage = () => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    const video = videoRef.current;
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const dataUrl = canvas.toDataURL('image/png');
+    setImage(dataUrl);
+  };
+
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("Image uploaded");
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -53,21 +101,41 @@ function App() {
 
       <div className="upload-section">
         <div className="camera-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 24 24" width="40">
-            <path d="M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5-3h2c.55 0 1 .45 1 1v9c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1v-9c0-.55.45-1 1-1h2l1-2h8l1 2zm0 2h-10l-1-2H7v9h10V9z"/>
-          </svg>
+          <i className="fas fa-camera fa-3x"></i>
+          <label htmlFor="image-upload" className="upload-label">
+            {image ? (
+              <img src={image} alt="Captured" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px' }} />
+            ) : (
+              'Click to attach image'
+            )}
+          </label>
         </div>
-        <label htmlFor="image-upload" className="upload-label">
-            Click to attach image
-        </label>
-        <input
-          type="file"
-          id="image-upload"
-          accept="image/*"
-          capture="camera"
-          onChange={handleImageUpload}
-          className="image-upload"
-        />
+
+        <div>
+          {isCameraOn ? (
+            <div>
+              <video ref={videoRef} autoPlay></video>
+              <div>
+                <button onClick={captureImage}>Capturar Imagen</button>
+                <button onClick={() => setIsCameraOn(false)}>Apagar Cámara</button>
+              </div>
+            </div>
+          ) : (
+            <button onClick={() => setIsCameraOn(true)}>Encender Cámara</button>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="file"
+            id="image-upload"
+            accept="image/*"
+            capture="camera"
+            onChange={handleImageUpload}
+            className="image-upload"
+          />
+        </div>
+
         {image && (
           <div className="image-preview">
             <img src={image} alt="Uploaded preview" />
@@ -79,6 +147,8 @@ function App() {
         <button className="button">Exit</button>
         <button className="button">Submit</button>
       </div>
+
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>
   );
 }
