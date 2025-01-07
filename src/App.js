@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -12,13 +11,17 @@ function App() {
 
   useEffect(() => {
     if (isCameraOn) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
+      const getMedia = async () => {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
           videoRef.current.srcObject = stream;
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error("Error al acceder a la cámara: ", error);
-        });
+          alert("No se pudo acceder a la cámara. Por favor, asegúrate de que tienes permisos y la cámara está disponible.");
+        }
+      };
+
+      getMedia();
     } else {
       if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject;
@@ -114,7 +117,7 @@ function App() {
         <div>
           {isCameraOn ? (
             <div>
-              <video ref={videoRef} autoPlay></video>
+              <video ref={videoRef} autoPlay style={{ width: '100%', height: 'auto' }}></video>
               <div>
                 <button onClick={captureImage}>Capturar Imagen</button>
                 <button onClick={() => setIsCameraOn(false)}>Apagar Cámara</button>
@@ -138,7 +141,7 @@ function App() {
 
         {image && (
           <div className="image-preview">
-            <img src={image} alt="Uploaded preview" />
+            <img src={image} alt="Uploaded preview" style={{ width: '100%', height: 'auto' }} />
           </div>
         )}
       </div>
@@ -154,9 +157,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
