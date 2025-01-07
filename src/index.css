@@ -128,6 +128,23 @@ body {
   padding-bottom: 20px;
 }
 
+.back-button {
+  background-color: white;
+  color: #4285F4;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8em;
+  transition: background-color 0.3s ease;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  -webkit-perspective-origin-y: unset;
+  margin-top: 5px;
+  position: absolute;
+  left: 0px !important;
+  margin-left: 5px;
+}
+
 .button {
   background-color: white;
   color: #4285F4;

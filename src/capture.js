@@ -21,9 +21,10 @@ function Capture({ onCapture, onClose }) {
         width="100%"
         videoConstraints={{ facingMode: "user" }}
       />
-      <div>
-        <button className="button" onClick={capture}>Capturar Imagen</button>
+      <div className="button-group">
+      <button className="button" onClick={capture}>Capturar Imagen</button>
       </div>
+
       INSTRUCTIONS
       <p>Take a headshot with a plain, light-colored background and even lighting to avoid shadows or bright spots. Wear business casual attire without logos or patterns, and ensure no glare if wearing glasses.</p>
     </div>
