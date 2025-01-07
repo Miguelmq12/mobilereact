@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; 
 
 function App() {
   const [dob, setDob] = useState('');
