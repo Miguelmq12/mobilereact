@@ -48,13 +48,6 @@ function App() {
                 )}
               </label>
             </div>
-
-            {image && (
-              <div className="image-preview">
-                <img src={image} alt="Captured" style={{ width: '100%', height: 'auto' }} />
-                <button onClick={handleOpenCamera}>Volver a tomar otra foto</button>
-              </div>
-            )}
           </div>
 
           <div className="button-group">
