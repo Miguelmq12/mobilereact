@@ -26,15 +26,35 @@ function App() {
       ) : (
         <>
           <h1 className="title">Personal Information</h1>
-
-          <div className="input-group">
-            <label htmlFor="dob">Date of Birth</label>
-            <input type="date" id="dob" className="input-field" />
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="ssn">Social Security #</label>
-            <input type="password" id="ssn" placeholder="•••••••••" className="input-field" />
+          <p className="message">
+            123 Main Street, Anytown, USA 90210
+            <br />
+            (555) 867-5309, sjones@gmail.com
+          </p>
+          <p className="message small">
+            (contact HR if any of this information is incorrect)
+          </p>
+          <div className="input-table">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label htmlFor="dob">Date of Birth</label>
+                  </td>
+                  <td>
+                    <input type="date" id="dob" className="input-field" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor="ssn">Social Security #</label>
+                  </td>
+                  <td>
+                    <input type="password" id="ssn" placeholder="•••••••••" className="input-field" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div className="upload-section">

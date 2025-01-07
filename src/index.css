@@ -6,14 +6,45 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: #4285F4;
   color: white;
-  padding: 20px;
   text-align: center;
   min-height: 100vh;
   width: 100%;
   margin: 0 auto;
+}
+
+.input-table {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.input-table table {
+  width: 100%;
+  max-width: 600px; /* Limita el ancho máximo de la tabla */
+  border-collapse: collapse;
+}
+
+.input-table td {
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.input-table label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .title {
@@ -23,53 +54,24 @@ body {
 
 .message {
   font-size: 1.2em;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  
 }
 
 .message.small {
   font-size: 0.9em;
 }
 
-.input-group {
-  margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.input-group label {
-  display: block;
-  font-size: 1.1em;
-  margin-bottom: 8px;
-}
-
-.input-field {
-  width: 280px;
-  padding: 10px;
-  font-size: 1em;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.ssn-input {
-  position: relative;
-}
-
-.ssn-input input {
-  width: 280px;
-  padding: 10px;
-  font-size: 1em;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
 .upload-section {
-  margin-bottom: 20px;
   width: 100%;
   display: flex;
-  flex-direction: column;  /* Cambié a columna */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 350px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .upload-label {
@@ -78,28 +80,30 @@ body {
   align-items: center;
   font-size: 1.2em;
   justify-content: center;
-  padding: 15px;
   border-radius: 5px;
   background-color: white;
   color: #4285F4;
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  height: 100% !important;
   text-align: center;
-  line-height: 120px;
-  margin-bottom: 10px;
-  position: relative; /* Esto asegura que el contenido dentro del label se posicione correctamente */
+  margin-bottom: 30px;
+  margin-top: 30px;
+  position: relative;
 }
 .upload-label img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Hace que la imagen se ajuste al tamaño del div sin distorsionarse */
+  object-fit: cover;
   border-radius: 5px;
 }
+
 .camera-icon {
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 90%;
+  height: 100%;
 }
 
 .image-upload {
@@ -126,10 +130,10 @@ body {
 .button {
   background-color: white;
   color: #4285F4;
-  padding: 10px 20px;
+  padding: 7px 10px;
   border: none;
   border-radius: 5px;
-  font-size: 1.2em;
+  font-size: 0.8em;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 120px;
@@ -141,12 +145,16 @@ body {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 1.5em;
+    font-size: 1.8em;
   }
 
   .message {
     font-size: 1em;
   }
+
+  .message.small {
+    font-size: 0.8em;
+}
 
   .input-field {
     width: 90%;
@@ -154,5 +162,9 @@ body {
 
   .button {
     width: 45%;
+  }
+
+  .input-table table {
+    width: 90%; /* Ajusta el ancho de la tabla en dispositivos móviles */
   }
 }
