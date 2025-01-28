@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import Capture from './capture';
 import Signature from './signature';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Compress from 'compress.js';
 
 function App() {
   const [image, setImage] = useState(null);
@@ -9,6 +11,30 @@ function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeTab, setActiveTab] = useState('upload');
   const [showSignature, setShowSignature] = useState(false);
+  const maxFileSize =   2 * 1024 * 1024; // 1 MB
+
+  const [ssn, setSsn] = useState('');
+  const [showSsn, setShowSsn] = useState(false);
+
+  const toggleShowSsn = () => {
+    setShowSsn(!showSsn); 
+  };
+
+  const formattedSsn = ssn.replace(/\d/g, '*'); 
+
+
+  const handleSsnChange = (event) => {
+    let value = event.target.value;
+    value = value.replace(/[^\d\-]/g, ''); 
+    if (value.length > 3 && value[3] !== '-') {
+      value = value.slice(0, 3) + '-' + value.slice(3);
+    }
+    if (value.length > 6 && value[6] !== '-') {
+      value = value.slice(0, 6) + '-' + value.slice(6);
+    }
+    setSsn(value);
+  };
+
   const handleCapture = (imageSrc) => {
     setImage(imageSrc);
     setShowCamera(false);
@@ -23,27 +49,82 @@ function App() {
   };
 
   const handleExit = () => {
-    setShowSignature(true); // Mostrar el componente de firma digital
+    setShowSignature(true); 
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
-
+  
     if (selectedFile) {
-      const reader = new FileReader();
+      const fileType = selectedFile.type;
+      const validImageTypes = [
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp', 
+        'image/bmp', 'image/tiff', 'image/heif', 'image/heic'
+      ];
+  
+      if (validImageTypes.includes(fileType)) {
+        if (selectedFile.size > maxFileSize) {
+          alert('El archivo es demasiado grande. El tamaño máximo permitido es 2 MB.');
+  
+          // try {
+          //   const compressedImage = await compressImage(selectedFile);
+          //   setSelectedImage(compressedImage);
+          // } catch (error) {
+          //   alert('Error al comprimir la imagen.');
+          // }
 
-      reader.onload = (e) => {
-        setSelectedImage(e.target.result);
-      };
+        }
 
-      reader.readAsDataURL(selectedFile);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setSelectedImage(e.target.result);
+        };
+        reader.readAsDataURL(selectedFile);
+      } else {
+        alert('Por favor, seleccione un archivo de imagen válido.');
+      }
     }
   };
 
+
+  const compressImage = (imageFile) => {
+    const compress = new Compress();
+    return new Promise((resolve, reject) => {
+      compress.compress([imageFile], {
+        size: 2, 
+        quality: 0.75, // Calidad de la imagen, 0 a 1 (0.75 es generalmente bueno)
+        maxWidth: 1024,
+        maxHeight: 1024, 
+        resize: true,
+      }).then((compressedImages) => {
+        const compressedImage = compressedImages[0]; 
+        resolve(compressedImage.data);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  };
+
+
   const handleSubmit = () => {
     if (image || selectedImage) {
-      const binaryData = image || selectedImage;
-      console.log('Imagen en formato binario:', binaryData);
+      const isValidImage = (image || selectedImage).startsWith('data:image/');
+      if (isValidImage) {
+        const file = selectedImage ? selectedImage : image;
+        const img = new Image();
+        img.onload = () => {
+          const fileSize = Math.round(file.length * 0.75); 
+          if (fileSize > maxFileSize) {
+            alert('El archivo de imagen es demasiado grande. El tamaño máximo permitido es 10KB MB.');
+          } else {
+            const binaryData = image || selectedImage;
+            console.log('Imagen en formato binario:', binaryData);
+          }
+        };
+        img.src = isValidImage ? file : '';
+      } else {
+        alert('El archivo seleccionado no es una imagen válida.');
+      }
     } else {
       alert('Por favor, cargue una imagen antes de enviar.');
     }
@@ -52,7 +133,7 @@ function App() {
   return (
     <div className="container-welcome">
       {showSignature ? (
-        <Signature /> // Mostrar el componente de firma
+        <Signature />
       ) : (
         <>
           {showCamera ? (
@@ -68,20 +149,66 @@ function App() {
               <p className="message small">
                 (contact HR if any of this information is incorrect)
               </p>
-              
-              {/* Sección de carga de archivo */}
+
+
+              <div className="input-table">
+                <table>
+                  <tr>
+                    <td>
+                      <label htmlFor="dob">Enter Date of Birth</label>
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        id="dob"
+                        name="dob"
+                        className="input-field"
+                        // Puedes agregar un onChange si necesitas manejar el valor
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+{/* 
+              <div className="input-table">
+                <table>
+                  <tr>
+                    <td>
+                      <label htmlFor="ssn">Social Security</label>
+                    </td>
+                    <td>
+                      <div className="ssn-input-container">
+                        <input
+                          type={showSsn ? 'text' : 'password'}
+                          id="ssn"
+                          name="ssn"
+                          value={showSsn ? ssn : formattedSsn}
+                          onChange={handleSsnChange}
+                          maxLength="11"
+                          className="input-field"
+                          placeholder="___-__-____"
+                        />
+                        <span className="eye-icon" onClick={toggleShowSsn}>
+                          {showSsn ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+               */}
               <div className="tab-container">
                 <button
                   className={`tab ${activeTab === 'upload' ? 'active' : ''}`}
                   onClick={() => setActiveTab('upload')}
                 >
-                  Cargar Archivo
+                  Upload
                 </button>
                 <button
                   className={`tab ${activeTab === 'camera' ? 'active' : ''}`}
                   onClick={() => setActiveTab('camera')}
                 >
-                  Capturar Imagen
+                  Capture
                 </button>
               </div>
 
@@ -108,7 +235,7 @@ function App() {
                           />
                         </div>
                       ) : (
-                        'Seleccionar archivo'
+                        'Select image file'
                       )}
                     </label>
                   </div>
@@ -129,7 +256,7 @@ function App() {
                             }}
                           />
                         ) : (
-                          'Click to attach image'
+                          'Take a picture'
                         )}
                       </label>
                     </div>
