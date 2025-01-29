@@ -90,11 +90,11 @@ const Signature = () => {
 
   // Función para limpiar el canvas
   const handleClear = () => {
-    const canvas = canvasRef.current;
-    const ctx = ctxRef.current;
-    if (canvas && ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    // const canvas = canvasRef.current;
+    // const ctx = ctxRef.current;
+    // if (canvas && ctx) {
+    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // }
   };
 
   // Función para guardar la firma
@@ -188,9 +188,9 @@ const Signature = () => {
 
       <div className="button-group">
                 <button className="button" onClick={handleClear}>
-                Clear
+                Exit
                 </button>
-                <button className="button" onClick={handleSaveSignature}>Save Signature</button>
+                <button className="button" onClick={handleSaveSignature}>Submit</button>
       </div>
 
 

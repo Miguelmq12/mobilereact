@@ -1,0 +1,201 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .login-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  .login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #19303D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .sms-info {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .sms-info-sub {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .login-box {
+    padding: 40px; 
+  }
+  
+  .login-box h2 {
+    font-size: 24px;
+  }
+  
+  .login-button {
+    font-weight: bold; 
+  }
+  
+  .country-select .css-1pah1yk-indicatorContainer {
+    display: none;
+  }
+  
+  .country-select .css-11unzgr { 
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+  }
+  
+  .country-select .css-13cymwt-control {
+    cursor: pointer;
+    border-radius: 4px;
+    color: #000;
+    background-color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .country-select .css-1uccc91-singleValue {
+    color: inherit;
+    margin-left: 6px;
+  }
+  
+  .country-select .css-13cymwt-control:hover {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+  }
+  
+  .country-select .css-13cymwt-control {
+    border: 1px solid #ced4da;
+  }
+
+  .flag {
+    font-size: 1.2em;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #4472C4; 
+  }
+  
+  .login-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+  
+.phone-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+  }
+  
+  .phone-input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .country-select {
+    width: 150px;
+    font-size: 14px;
+    margin-right: 5px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  .country-flag {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+  }
+  
+  .dial-code {
+    font-size: 14px;
+    margin-right: 5px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .phone-input {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 5px;
+    width: 100%;
+    z-index: 0;
+  }
+  
+  .phone-input-wrapper {
+    position: relative;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+ 
+  .login-logo {
+    width: 400px;
+    object-fit: cover;
+  }
+
+
+
+  
+@media (max-width: 768px) {
+    .login-logo {
+        width: 90%;
+        object-fit: cover;
+      }
+      .login-box{
+        width: auto;
+      }
+}
+  
