@@ -9,14 +9,13 @@ const Signature: React.FC = () => {
     const navigate = useNavigate();
   const [drawing, setDrawing] = useState<boolean>(false);
   const [font, setFont] = useState<string>('Dancing Script');
-  const [signatureType, setSignatureType] = useState<SignatureType>('draw'); // Estado para seleccionar el tipo de firma
-  const [fullName, setFullName] = useState<string>(''); // Nombre completo ingresado
+  const [signatureType, setSignatureType] = useState<SignatureType>('draw'); 
+  const [fullName, setFullName] = useState<string>('');
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
     if (signatureType === 'draw') {
-      // Inicializar el canvas y el contexto cada vez que cambiamos a "draw"
       const canvas = canvasRef.current;
       if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -28,25 +27,22 @@ const Signature: React.FC = () => {
         }
       }
     }
-  }, [signatureType]); // Este useEffect se activa cada vez que `signatureType` cambia
+  }, [signatureType]); 
 
-  // Limpiar el canvas al cambiar entre tabs
   useEffect(() => {
     if (signatureType === 'draw') {
       const canvas = canvasRef.current;
       const ctx = ctxRef.current;
       if (canvas && ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar canvas al cambiar de tipo de firma
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
       }
     }
   }, [signatureType]);
 
-  // Cambiar el tipo de firma entre "draw" o "type"
   const handleChangeSignatureType = (type: SignatureType): void => {
     setSignatureType(type);
   };
 
-  // Función para dibujar en el canvas
   const draw = (e: MouseEvent | TouchEvent): void => {
     if (!drawing) return;
     const canvas = canvasRef.current;
@@ -61,15 +57,14 @@ const Signature: React.FC = () => {
     ctx.stroke();
   };
 
-  // Manejo de eventos de dibujo en touch y mouse
   const handleTouchStart = (e: TouchEvent): void => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const touch = e.touches[0]; // Obtiene el primer toque
-      const rect = canvas.getBoundingClientRect(); // Calcula la posición del canvas
-      ctxRef.current?.beginPath(); // Inicia una nueva ruta de dibujo
-      ctxRef.current?.moveTo(touch.clientX - rect.left, touch.clientY - rect.top); // Mueve el punto de inicio al toque
-      setDrawing(true); // Establece que estamos dibujando
+      const touch = e.touches[0]; 
+      const rect = canvas.getBoundingClientRect(); 
+      ctxRef.current?.beginPath(); 
+      ctxRef.current?.moveTo(touch.clientX - rect.left, touch.clientY - rect.top); 
+      setDrawing(true); 
     }
   };
 
@@ -80,7 +75,7 @@ const Signature: React.FC = () => {
   };
 
   const handleTouchEnd = (): void => {
-    setDrawing(false); // Detiene el dibujo cuando se levanta el dedo
+    setDrawing(false); 
   };
 
   const handleMouseDown = (e: MouseEvent): void => {
@@ -101,17 +96,10 @@ const Signature: React.FC = () => {
     setDrawing(false);
   };
 
-  // Función para limpiar el canvas
   const handleClear = (): void => {
     navigate('/landing-page');
-    // const canvas = canvasRef.current;
-    // const ctx = ctxRef.current;
-    // if (canvas && ctx) {
-    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // }
   };
 
-  // Función para guardar la firma
   const handleSaveSignature = (): void => {
     if (signatureType === 'draw') {
       const canvas = canvasRef.current;
@@ -140,7 +128,6 @@ const Signature: React.FC = () => {
         I hereby voluntarily consent to use a digital signature for the completion of my new hire paperwork online. I understand that my digital signature holds the same legal weight and validity as a handwritten signature.
       </p>
 
-      {/* Pestañas para alternar entre tipo de firma */}
       <div className="tab-container">
         <button
           className={`tab ${signatureType === 'draw' ? 'active' : ''}`}
@@ -181,7 +168,6 @@ const Signature: React.FC = () => {
           </div>
         )}
 
-        {/* Canvas para dibujar la firma */}
         {signatureType === 'draw' && (
           <div className="canvas-container">
             <canvas

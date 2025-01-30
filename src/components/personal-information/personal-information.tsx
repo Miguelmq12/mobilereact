@@ -93,7 +93,7 @@ const PersonalInformation = () => {
     return new Promise((resolve, reject) => {
       compress.compress([imageFile], {
         size: 2, 
-        quality: 0.75, // Calidad de la imagen, 0 a 1 (0.75 es generalmente bueno)
+        quality: 0.75,
         maxWidth: 1024,
         maxHeight: 1024, 
         resize: true,

@@ -69,7 +69,6 @@ const Login = () => {
 
         <div className="phone-input-container">
           <div className="phone-input-wrapper">
-            {/* Selector de país dentro del mismo contenedor */}
             <Select
               value={selectedCountry}
               onChange={handleCountryChange}
